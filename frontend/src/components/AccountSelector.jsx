@@ -1,5 +1,6 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
+import { stringToColor } from '../utils';
 
 function CheckIcon() {
   return (
@@ -50,7 +51,7 @@ export default function AccountSelector({ isOpen, onClose, onSwitch }) {
                 onClick={() => handleSelect(user)}
                 id={`account-select-${user.id}`}
               >
-                <div className="account-avatar">
+                <div className="account-avatar" style={{ backgroundColor: stringToColor(user.name) }}>
                   {user.name.charAt(0).toUpperCase()}
                 </div>
                 <div className="account-list-detail">

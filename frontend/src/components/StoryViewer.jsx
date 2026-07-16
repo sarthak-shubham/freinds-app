@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import ConfirmDialog from './ConfirmDialog';
 import Tooltip from './Tooltip';
+import { stringToColor } from '../utils';
 
 function TrashIcon() {
   return (
@@ -142,7 +143,7 @@ export default function StoryViewer({ story, isOwnStory, onClose, onDelete }) {
       {/* Header */}
       <div className="story-viewer-header">
         <div className="story-viewer-user">
-          <div className="account-avatar account-avatar--sm" style={{ background: 'rgba(255,255,255,0.25)', color: '#fff' }}>
+          <div className="account-avatar account-avatar--sm" style={{ backgroundColor: stringToColor(story.owner_name), color: '#fff' }}>
             {story.owner_name?.charAt(0).toUpperCase()}
           </div>
           <span className="story-viewer-name">

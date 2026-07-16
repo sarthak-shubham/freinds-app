@@ -3,7 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { api } from '../api';
 import LoadingOverlay from '../components/LoadingOverlay';
-import useSWR from 'swr';function ArrowLeftIcon() {
+import useSWR from 'swr';
+import { stringToColor } from '../utils';
+
+function ArrowLeftIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <line x1="19" y1="12" x2="5" y2="12" />
@@ -148,7 +151,7 @@ export default function CloseFriendsPage() {
             {displayUsers.map(user => (
               <div key={user.id} className="friend-item" onClick={() => toggleFriend(user.id)}>
                 <div className="friend-item-info">
-                  <div className="account-avatar">
+                  <div className="account-avatar" style={{ backgroundColor: stringToColor(user.name) }}>
                     {user.name.charAt(0).toUpperCase()}
                   </div>
                   <span className="friend-item-name">{user.name}</span>

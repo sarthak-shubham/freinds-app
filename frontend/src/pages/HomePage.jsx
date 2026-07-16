@@ -8,6 +8,7 @@ import AccountSelector from '../components/AccountSelector';
 import LoadingOverlay from '../components/LoadingOverlay';
 import Tooltip from '../components/Tooltip';
 import ConfirmDialog from '../components/ConfirmDialog';
+import { stringToColor } from '../utils';
 
 import useSWR from 'swr';
 
@@ -161,7 +162,7 @@ export default function HomePage() {
               onClick={() => setAccountSelectorOpen(true)}
               id="account-selector-trigger"
             >
-              <div className="account-avatar account-avatar--sm">
+              <div className="account-avatar account-avatar--sm" style={{ backgroundColor: stringToColor(currentUser?.name) }}>
                 {currentUser?.name?.charAt(0)?.toUpperCase() || '?'}
               </div>
               <span className="account-trigger-name">
@@ -189,7 +190,7 @@ export default function HomePage() {
                   id="your-story-ring"
                 >
                   <div className="story-ring-inner">
-                    <div className="story-ring-avatar">
+                    <div className="story-ring-avatar" style={{ backgroundColor: stringToColor(currentUser?.name) }}>
                       {currentUser?.name?.charAt(0)?.toUpperCase() || '?'}
                     </div>
                   </div>
@@ -203,7 +204,7 @@ export default function HomePage() {
                 >
                   <div className="story-ring-inner">
                     {uploading ? (
-                      <div className="story-ring-avatar">
+                      <div className="story-ring-avatar" style={{ backgroundColor: stringToColor(currentUser?.name) }}>
                         {currentUser?.name?.charAt(0)?.toUpperCase() || '?'}
                       </div>
                     ) : (
@@ -228,7 +229,7 @@ export default function HomePage() {
                   id={`story-ring-${story.owner_id}`}
                 >
                   <div className="story-ring-inner">
-                    <div className="story-ring-avatar">
+                    <div className="story-ring-avatar" style={{ backgroundColor: stringToColor(story.owner_name) }}>
                       {story.owner_name?.charAt(0).toUpperCase()}
                     </div>
                   </div>
