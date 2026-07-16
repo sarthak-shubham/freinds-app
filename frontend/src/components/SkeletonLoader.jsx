@@ -36,6 +36,11 @@ export function FeedSkeleton() {
       </div>
       <div className="story-feed">
         <StoryCardSkeleton />
+        <StoryCardSkeleton />
+        <StoryCardSkeleton />
+        <StoryCardSkeleton />
+        <StoryCardSkeleton />
+        <StoryCardSkeleton />
       </div>
     </>
   );
