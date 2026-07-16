@@ -40,7 +40,12 @@ function App() {
       {showSplash ? (
         <SplashScreen onComplete={() => setShowSplash(false)} />
       ) : (
-        <AppShell />
+        <div className="app-root">
+          <div className="demo-banner">
+            Demo Environment: Instant account switching is enabled for easier demonstration of features.
+          </div>
+          <AppShell />
+        </div>
       )}
     </ErrorBoundary>
   );

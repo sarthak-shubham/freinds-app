@@ -75,8 +75,8 @@
   --radius-full: 9999px;
 
   /* Elevation */
-  --shadow-ambient: 0px 8px 24px rgba(0,0,0,0.06);
-  --shadow-sm: 0px 1px 3px rgba(0,0,0,0.08);
+  --shadow-ambient: 0px 8px 24px rgba(0, 0, 0, 0.06);
+  --shadow-sm: 0px 1px 3px rgba(0, 0, 0, 0.08);
 
   /* Nav */
   --nav-height: 56px;
@@ -86,18 +86,56 @@
 /* =========================================
    UTILITIES
    ========================================= */
-.text-center { text-align: center; }
-.p-4 { padding: var(--space-4); }
-.p-5 { padding: var(--space-5); }
-.py-10 { padding: 40px 0; }
-.mx-auto { margin: 0 auto; }
-.text-variant { color: var(--on-surface-variant); }
-.flex-col { display: flex; flex-direction: column; }
-.flex-col-center { display: flex; flex-direction: column; align-items: center; }
-.gap-1 { gap: var(--space-1); }
-.gap-4 { gap: var(--space-4); }
-.mt-4 { margin-top: var(--space-4); }
-.flex-1 { flex: 1; }
+.text-center {
+  text-align: center;
+}
+
+.p-4 {
+  padding: var(--space-4);
+}
+
+.p-5 {
+  padding: var(--space-5);
+}
+
+.py-10 {
+  padding: 40px 0;
+}
+
+.mx-auto {
+  margin: 0 auto;
+}
+
+.text-variant {
+  color: var(--on-surface-variant);
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-col-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gap-1 {
+  gap: var(--space-1);
+}
+
+.gap-4 {
+  gap: var(--space-4);
+}
+
+.mt-4 {
+  margin-top: var(--space-4);
+}
+
+.flex-1 {
+  flex: 1;
+}
 
 /* =========================================
    GLOBAL RESET
@@ -142,7 +180,8 @@ button {
   outline: none;
 }
 
-input, textarea {
+input,
+textarea {
   font-family: inherit;
   font-size: inherit;
   color: inherit;
@@ -155,7 +194,8 @@ img {
   max-width: 100%;
 }
 
-ul, ol {
+ul,
+ol {
   list-style: none;
 }
 
@@ -214,9 +254,15 @@ ul, ol {
 }
 
 /* ----- App Layout ----- */
+.app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
 .app-shell {
   width: 100%;
-  min-height: 100dvh;
+  flex: 1;
   display: flex;
   flex-direction: column;
   background: var(--surface-container-lowest);
@@ -235,10 +281,12 @@ ul, ol {
   .app-shell {
     flex-direction: row;
   }
+
   .app-content {
     padding-bottom: 0;
     margin-left: var(--desktop-nav-width);
-    margin-right: auto; /* Centers the feed in the remaining space */
+    margin-right: auto;
+    /* Centers the feed in the remaining space */
     padding-left: var(--space-4);
     padding-right: var(--space-4);
   }
@@ -251,10 +299,11 @@ ul, ol {
     flex-direction: row;
     width: 100%;
   }
-  
+
   .app-content {
     margin: 0;
-    max-width: none; /* Let it stretch full width */
+    max-width: none;
+    /* Let it stretch full width */
     width: 100%;
     flex: 1;
     display: flex;
@@ -269,7 +318,7 @@ ul, ol {
   left: 0;
   right: 0;
   height: var(--nav-height);
-  background: rgba(255,255,255,0.95);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   border-top: 1px solid var(--surface-container-high);
@@ -374,7 +423,7 @@ ul, ol {
   padding: var(--space-4) var(--space-4);
   height: 56px;
   top: 0;
-  background: rgba(255,255,255,0.95);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   z-index: 50;
@@ -686,7 +735,7 @@ ul, ol {
   width: 32px;
   height: 32px;
   border-radius: var(--radius-full);
-  background: rgba(255,255,255,0.85);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
@@ -711,7 +760,7 @@ ul, ol {
 .overlay-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   z-index: 200;
@@ -751,6 +800,7 @@ ul, ol {
     max-width: 400px;
     max-height: 70vh;
   }
+
   .overlay-backdrop--bottom {
     align-items: center;
   }
@@ -1003,7 +1053,7 @@ ul, ol {
 
 .story-viewer-progress-track {
   height: 3px;
-  background: rgba(255,255,255,0.3);
+  background: rgba(255, 255, 255, 0.3);
   border-radius: var(--radius-full);
   overflow: hidden;
 }
@@ -1037,13 +1087,13 @@ ul, ol {
 .story-viewer-name {
   font-weight: 700;
   font-size: 14px;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .story-viewer-time {
   font-size: 12px;
   opacity: 0.7;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .story-viewer-actions {
@@ -1064,7 +1114,7 @@ ul, ol {
 }
 
 .story-viewer-btn:hover {
-  background: rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .story-viewer-btn svg {
@@ -1122,7 +1172,7 @@ ul, ol {
 .loading-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(255,255,255,0.7);
+  background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   z-index: 500;
@@ -1163,12 +1213,10 @@ ul, ol {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255,255,255,0.6) 50%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.6) 50%,
+      transparent 100%);
   animation: shimmer 1.5s infinite;
 }
 
@@ -1296,6 +1344,7 @@ ul, ol {
 .tooltip-wrapper--top .tooltip-text {
   bottom: calc(100% + 8px);
 }
+
 .tooltip-wrapper--top .tooltip-text::after {
   content: '';
   position: absolute;
@@ -1310,6 +1359,7 @@ ul, ol {
 .tooltip-wrapper--bottom .tooltip-text {
   top: calc(100% + 8px);
 }
+
 .tooltip-wrapper--bottom .tooltip-text::after {
   content: '';
   position: absolute;
@@ -1419,7 +1469,7 @@ ul, ol {
   height: 56px;
   position: sticky;
   top: 0;
-  background: rgba(255,255,255,0.95);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   z-index: 50;
@@ -1452,7 +1502,8 @@ ul, ol {
   letter-spacing: -0.02em;
   flex: 1;
   text-align: center;
-  padding-right: 36px; /* offset for back button */
+  padding-right: 36px;
+  /* offset for back button */
 }
 
 .cf-page-body {
@@ -1493,7 +1544,7 @@ ul, ol {
     margin: 0 auto;
     width: 100%;
   }
-  
+
   .cf-page-header {
     border-bottom: 1px solid var(--surface-container-high);
   }
@@ -1504,17 +1555,29 @@ ul, ol {
    ============================================= */
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 @keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slide-up {
@@ -1522,6 +1585,7 @@ ul, ol {
     opacity: 0;
     transform: translateY(24px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1529,7 +1593,9 @@ ul, ol {
 }
 
 @keyframes ring-rotate {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes logo-entrance {
@@ -1537,6 +1603,7 @@ ul, ol {
     opacity: 0;
     transform: scale(0) rotate(-30deg);
   }
+
   100% {
     opacity: 1;
     transform: scale(1) rotate(0deg);
@@ -1548,6 +1615,7 @@ ul, ol {
     opacity: 0;
     transform: translateY(12px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -1559,6 +1627,7 @@ ul, ol {
     opacity: 1;
     transform: scale(1);
   }
+
   100% {
     opacity: 0;
     transform: scale(1.05);
@@ -1566,8 +1635,15 @@ ul, ol {
 }
 
 @keyframes pulse-gentle {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
 }
 
 /* ----- Utility ----- */
@@ -1578,7 +1654,19 @@ ul, ol {
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0,0,0,0);
+  clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* ----- Demo Banner ----- */
+.demo-banner {
+  background-color: var(--on-surface);
+  color: var(--surface);
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 16px;
+  width: 100%;
+  box-sizing: border-box;
 }
