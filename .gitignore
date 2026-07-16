@@ -1,0 +1,21 @@
+# Environments
+venv/
+env/
+
+# Python caching
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Node
+node_modules/
+dist/
+build/
+
+# Secrets
+.env
+
+# IDEs
+.vscode/
+.idea/
+.DS_Store
