@@ -12,6 +12,14 @@ The core problem solved by this project is not the UI, but enforcing complex dat
 
 Instead of writing complex, error-prone filtering logic in the backend application layer, this project pushes authorization logic entirely down to the database layer using **Supabase Row Level Security (RLS)**. It also features a custom-built, zero-friction 1-click test environment allowing evaluators to instantly switch accounts and test the visibility rules without creating fake credentials.
 
+## Screenshots
+
+<div align="center">
+  <img src="./docs/home.png" alt="Home Feed" width="250" />
+  &nbsp; &nbsp; &nbsp;
+  <img src="./docs/close-friends.png" alt="Close Friends Toggles" width="250" />
+</div>
+
 ## Tech Stack
 
 | Layer | Technology |
