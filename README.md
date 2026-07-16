@@ -1,95 +1,114 @@
-# FREINDS - Secure Social Feed App
+# Close Friends: RLS Data Isolation
 
-![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
-![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
-![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
-![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
-![Pytest](https://img.shields.io/badge/pytest-%23ffffff.svg?style=for-the-badge&logo=pytest&logoColor=2f9fe3)
+A full-stack Instagram-style feed demonstrating secure Row Level Security (RLS) and data isolation with Supabase.
 
-**FREINDS** is a highly responsive, production-ready social media web application. It was built to demonstrate advanced, secure backend architecture—specifically focusing on **Database-Level Row Level Security (RLS)**—paired with a gorgeous, fluid, mobile-first frontend layout.
+<div align="center">
+  <p><b>Live Demo:</b> <a href="https://freinds-app.vercel.app/">https://freinds-app.vercel.app/</a></p>
+</div>
 
-## 🚀 Key Features
-- **Strict Data Isolation (RLS):** Feed visibility is controlled directly at the PostgreSQL database level using Supabase Row Level Security. Data is never leaked to the frontend for filtering.
-- **Optimized Backend:** Built with Python FastAPI, featuring internal LRU Caching for high-speed repeated queries.
-- **Fluid UI Architecture:** The frontend utilizes advanced CSS Grid and Flexbox to scale seamlessly from tiny mobile screens to ultra-wide desktop monitors without wasting space.
-- **Enterprise Ready:** Fully containerized with Docker, covered by Pytest test suites, and utilizes structured logging.
+## Overview
 
----
+The core problem solved by this project is not the UI, but enforcing complex data visibility rules securely. Specifically, it implements the "Close Friends" feature: a user should only be able to see a story if the creator explicitly added them to their Close Friends list. 
 
-## 🧪 Evaluator Guide: Testing the RLS "Happy Path"
+Instead of writing complex, error-prone filtering logic in the backend application layer, this project pushes authorization logic entirely down to the database layer using **Supabase Row Level Security (RLS)**. It also features a custom-built, zero-friction 1-click test environment allowing evaluators to instantly switch accounts and test the visibility rules without creating fake credentials.
 
-To make testing easy without requiring email signups, this app features a built-in **Mock Account Switcher** located in the top right of the navigation bar. 
+## Tech Stack
 
-To verify that the Row Level Security policies are working perfectly, follow this exact testing path:
+| Layer | Technology |
+|---|---|
+| **Backend** | Python, FastAPI |
+| **Database** | PostgreSQL (Supabase) |
+| **Security** | Supabase Row Level Security (RLS) |
+| **Frontend** | React, Vite |
+| **Deployment** | Render (API), Vercel (Frontend) |
 
-### Step 1: Set Up the Close Friends List
-1. Open the app and use the top-right account switcher to log in as **Isha**.
-2. Click the **Close Friends** icon (the group icon) in the navigation bar.
-3. Toggle **Shruti** to be ON (added to close friends).
-4. Leave **Rahul** toggled OFF (not in close friends).
-5. Click **Done**.
+## Architecture
 
-### Step 2: Create a Secure Story
-1. Return to the Home feed.
-2. Click the **+** (Add Story) button.
-3. Upload an image to post a new story as Isha.
+Data flows from the React client to a FastAPI backend, which relies on Supabase to enforce data access policies before returning data.
 
-### Step 3: Verify the RLS Database Rules
-Now, we test if the database properly secures the data:
-1. Switch your account to **Shruti**. 
-   - *Result:* You should see Isha's story natively on your feed.
-2. Switch your account to **Rahul**.
-   - *Result:* Your feed should be completely empty ("No stories yet"). 
-
-> **What is happening behind the scenes?** 
-> Rahul's empty feed is **not** achieved by a frontend `if` statement hiding the story. When Rahul's client requests the feed, the Supabase Postgres Database intercepts the query, evaluates the relational `close_friends` table via RLS policies, and strictly denies returning the rows. The data never even reaches the backend server!
-
----
-
-## 💻 Tech Stack
-
-### Frontend
-- **React.js (Vite):** Fast, modern UI rendering.
-- **Vanilla CSS:** Custom design system utilizing CSS Variables, Grid, and Flexbox for native responsiveness without heavy framework bloat.
-- **SWR:** Stale-while-revalidate for highly performant client-side data fetching.
-
-### Backend
-- **Python FastAPI:** Asynchronous, high-performance API routing.
-- **Supabase:** PostgreSQL database, Auth, and Storage buckets.
-- **Pytest:** 17+ assertions for robust test coverage.
-- **Docker:** Complete `docker-compose` setup for isolated environments.
-
----
-
-## 🛠️ Local Development Setup
-
-To run this project locally, you will need Node.js, Python 3.11+, and a Supabase project.
-
-### 1. Environment Variables
-Create a `.env` file in the root directory:
-```env
-SUPABASE_URL=your_supabase_url
-SUPABASE_ANON_KEY=your_anon_key
-SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+```mermaid
+graph LR
+  Client[React Client] -->|REST API| API[FastAPI Backend]
+  API -->|Read/Write Data| DB[(Supabase PostgreSQL)]
+  DB -.->|Enforces Policies| RLS[Row Level Security]
 ```
 
-### 2. Run the Backend
+## Database Schema & RLS
+
+The database relies on a junction table (`close_friends`) to determine visibility. The Supabase RLS policies are written so that when the `stories` table is queried, the database automatically filters out any stories the requesting user is not authorized to see.
+
+```mermaid
+erDiagram
+    users ||--o{ stories : creates
+    users ||--o{ close_friends : "adds (owner)"
+    users ||--o{ close_friends : "is added (member)"
+    
+    users {
+        uuid id PK
+        string email
+        string full_name
+    }
+    stories {
+        uuid id PK
+        uuid user_id FK
+        string media_url
+        timestamp created_at
+    }
+    close_friends {
+        uuid owner_id FK
+        uuid member_id FK
+    }
+```
+
+## Design Decisions
+
+- **Thick Database, Thin Backend:** Chosen to prevent data leaks. By writing RLS policies directly in PostgreSQL, it is mathematically impossible for the FastAPI backend to accidentally serve a private story to the wrong user, even if an API endpoint is poorly written.
+- **The "Zero-Friction" Demo Architecture:** Evaluators drop off if they have to register accounts. I built a custom "1-click account switcher" UI and bypassed standard JWT auth on the client to allow recruiters to instantly switch perspectives and test the RLS rules.
+- **Deterministic Database Seeding:** The backend includes an `admin_setup.py` script that uses the Supabase Service Role key to seed the database with a deterministic, pre-configured web of users and close-friend relationships so the demo is perfectly testable right out of the box.
+
+## Tradeoffs & Future Improvements
+
+- **Limitation:** To enable the 1-Click Demo Mode, strict JWT validation on the backend was bypassed in favor of an assumed-identity model via headers.
+- **Improvement:** In a production commercial release, I would enforce Supabase Auth JWTs on every API request and remove the account switcher.
+- **Limitation:** Media upload latency can be high because the free-tier Render backend (Ohio) handles the upload stream while the client is in India.
+- **Improvement:** Move media uploads directly from the Client to Supabase Storage via signed URLs to utilize edge caching and reduce backend CPU load.
+
+## Local Setup
+
+**1. Clone the repository**
+```bash
+git clone https://github.com/sarthak-shubham/freinds-app.git
+cd freinds-app
+```
+
+**2. Backend Setup**
 ```bash
 cd backend
+python -m venv venv
+source venv/bin/activate  # Or `venv\Scripts\activate` on Windows
 pip install -r requirements.txt
-python -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 ```
-*(Or use `docker-compose up backend --build`)*
 
-### 3. Run the Frontend
+**3. Environment Variables**
+Create a `.env` file in the `backend` directory:
+| Variable | Description |
+|---|---|
+| `SUPABASE_URL` | Your Supabase project URL |
+| `SUPABASE_KEY` | Supabase Anon/Public key |
+| `SUPABASE_SERVICE_ROLE_KEY` | Needed for `admin_setup.py` |
+
+**4. Seed the Database**
 ```bash
-cd frontend
+python scripts/admin_setup.py
+```
+
+**5. Run the Application**
+Start the backend (from `backend` folder):
+```bash
+uvicorn main:app --reload
+```
+Start the frontend (from `frontend` folder in a new terminal):
+```bash
 npm install
 npm run dev
-```
-
-### 4. Run the Test Suite
-```bash
-cd backend
-python -m pytest tests/ -v
 ```
