@@ -17,7 +17,7 @@ Instead of writing complex, error-prone filtering logic in the backend applicati
 <div align="center">
   <img src="./docs/home.png" alt="Home Feed" width="250" />
   &nbsp; &nbsp; &nbsp;
-  <img src="./docs/close-friends.png" alt="Close Friends Toggles" width="250" />
+  <img src="./docs/account-switcher.png" alt="Account Switcher" width="250" />
 </div>
 
 ## Tech Stack
