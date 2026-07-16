@@ -429,11 +429,28 @@ ul, ol {
   gap: var(--space-2);
   padding: 4px 8px 4px 4px;
   border-radius: var(--radius-full);
-  transition: background-color 0.2s ease;
+  background-color: var(--surface-container-low);
+  border: 1px solid var(--outline-variant);
+  transition: all 0.2s ease;
 }
 
 .account-trigger:hover {
-  background: var(--surface-container);
+  background-color: var(--surface-container-high);
+  border-color: var(--outline);
+}
+
+.account-trigger-name {
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--on-surface);
+  margin-right: 4px;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .account-trigger-name {
+    display: block;
+  }
 }
 
 .account-avatar {

@@ -164,6 +164,9 @@ export default function HomePage() {
               <div className="account-avatar account-avatar--sm">
                 {currentUser?.name?.charAt(0)?.toUpperCase() || '?'}
               </div>
+              <span className="account-trigger-name">
+                {currentUser?.name?.split(' ')[0] || 'Account'}
+              </span>
               <ChevronDown />
             </button>
           </Tooltip>
