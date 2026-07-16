@@ -113,7 +113,13 @@ Create a `.env` file in the `backend` directory:
 python scripts/admin_setup.py
 ```
 
-**5. Run the Application**
+**5. Run the Tests**
+If you want to run the automated tests to verify the backend behavior:
+```bash
+pytest
+```
+
+**6. Run the Application**
 Start the backend (from `backend` folder):
 ```bash
 uvicorn main:app --reload
@@ -123,3 +129,10 @@ Start the frontend (from `frontend` folder in a new terminal):
 npm install
 npm run dev
 ```
+
+## API Documentation
+
+Once the backend is running, you can access the beautiful interactive API documentation powered by Scalar at:
+**[http://localhost:8000/docs](http://localhost:8000/docs)**
+
+This sandbox environment provides instructions on how to test the various endpoints, including the custom authentication via the `userEmail` header, and how to send JSON payloads containing UUIDs to test the close friends functionality.

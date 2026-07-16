@@ -17,6 +17,12 @@ This demo is locked to 3 deterministic test accounts. To authenticate your reque
 **Guided Security Tour:**
 1. Hit `GET /api/users` to fetch the UUIDs for these three users.
 2. Use those UUIDs in the other endpoints to test cross-account RLS enforcement!
+
+**Examples of how to test:**
+- **Add Rahul to Isha's Close Friends:** Call `POST /api/close-friends` with the `userEmail: isha@example.com` header, and send `{"member_id": "<rahul-uuid>"}` in the JSON body.
+- **Post a Story for Isha:** Call `POST /api/stories` with the `userEmail: isha@example.com` header, and attach an image file using `multipart/form-data` with the key `file`.
+- **View Isha's Story as Rahul:** Call `GET /api/stories/<isha-uuid>` with the `userEmail: rahul@example.com` header. RLS will grant access because Rahul is on her close friends list!
+- **View Isha's Story as Shruti:** Call `GET /api/stories/<isha-uuid>` with the `userEmail: shruti@example.com` header. RLS will block access (403 Forbidden)!
 """
 
 app = FastAPI(
