@@ -74,6 +74,7 @@ erDiagram
 ## Design Decisions
 
 - **Thick Database, Thin Backend:** Chosen to prevent data leaks. By writing RLS policies directly in PostgreSQL, it is mathematically impossible for the FastAPI backend to accidentally serve a private story to the wrong user, even if an API endpoint is poorly written.
+  - *Testing Note:* Because the FastAPI backend forcefully acts on the identity provided in the `userEmail` header for all modification endpoints (like POST/DELETE), you cannot explicitly test malicious modifications (like deleting someone else's story). The backend acts as a strict proxy. To test cross-account RLS blocking in action, use the `GET /api/stories/{target_owner_id}` endpoint as a different user.
 - **The "Zero-Friction" Demo Architecture:** Evaluators drop off if they have to register accounts. I built a custom "1-click account switcher" UI and bypassed standard JWT auth on the client to allow recruiters to instantly switch perspectives and test the RLS rules.
 - **Deterministic Database Seeding:** The backend includes an `admin_setup.py` script that uses the Supabase Service Role key to seed the database with a deterministic, pre-configured web of users and close-friend relationships so the demo is perfectly testable right out of the box.
 

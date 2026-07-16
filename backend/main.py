@@ -23,6 +23,9 @@ This demo is locked to 3 deterministic test accounts. To authenticate your reque
 - **Post a Story for Isha:** Call `POST /api/stories` with the `userEmail: isha@example.com` header, and attach an image file using `multipart/form-data` with the key `file`.
 - **View Isha's Story as Rahul:** Call `GET /api/stories/<isha-uuid>` with the `userEmail: rahul@example.com` header. RLS will grant access because Rahul is on her close friends list!
 - **View Isha's Story as Shruti:** Call `GET /api/stories/<isha-uuid>` with the `userEmail: shruti@example.com` header. RLS will block access (403 Forbidden)!
+
+**Note on Testing Malicious Modifications:**
+You might wonder how to test maliciously deleting someone else's story or adding to someone else's friend list. Because of the backend's strict design, endpoints like `POST /stories` or `DELETE /stories` do not accept a target ID in the payload. They forcefully act only on the account provided in the `userEmail` header. Therefore, the **only** endpoint where you can actively test cross-account RLS blocking is `GET /api/stories/{target_owner_id}`.
 """
 
 app = FastAPI(
