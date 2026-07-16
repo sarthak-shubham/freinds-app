@@ -75,9 +75,9 @@ export default function CreateStoryModal({ isOpen, onClose, onUpload, uploading 
         />
 
         {uploading ? (
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px', padding: '40px 0' }}>
+          <div className="flex-col-center gap-4 py-10">
             <div className="loading-spinner loading-spinner--brand" />
-            <p className="body-md" style={{ color: 'var(--on-surface-variant)' }}>Uploading your story...</p>
+            <p className="body-md text-variant">Uploading your story...</p>
           </div>
         ) : (
           <>
@@ -96,9 +96,8 @@ export default function CreateStoryModal({ isOpen, onClose, onUpload, uploading 
             </div>
 
             <button
-              className="btn btn--secondary btn--full"
+              className="btn btn--secondary btn--full mt-4"
               onClick={() => fileInputRef.current?.click()}
-              style={{ marginTop: '16px' }}
               id="story-select-file-btn"
             >
               Select from file
@@ -106,7 +105,7 @@ export default function CreateStoryModal({ isOpen, onClose, onUpload, uploading 
           </>
         )}
 
-        <p className="body-sm" style={{ color: 'var(--on-surface-variant)', textAlign: 'center', marginTop: '16px' }}>
+        <p className="body-sm text-variant text-center mt-4">
           Your stories will be visible to your friends for 24 hours.
         </p>
       </div>

@@ -40,7 +40,7 @@ export default function AccountSelector({ isOpen, onClose, onSwitch }) {
           </button>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+        <div className="flex-col gap-1">
           {allUsers.map(user => {
             const isActive = currentUser?.id === user.id;
             return (

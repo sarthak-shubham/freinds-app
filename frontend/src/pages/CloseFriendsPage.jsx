@@ -136,11 +136,11 @@ export default function CloseFriendsPage() {
         </div>
 
         {loading ? (
-          <div style={{ padding: '20px', textAlign: 'center' }}>
-            <div className="loading-spinner loading-spinner--brand" style={{ margin: '0 auto' }} />
+          <div className="p-5 text-center">
+            <div className="loading-spinner loading-spinner--brand mx-auto" />
           </div>
         ) : displayUsers.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '40px 20px', color: 'var(--on-surface-variant)' }}>
+          <div className="text-center p-5 text-variant py-10">
             No users found
           </div>
         ) : (

@@ -88,16 +88,23 @@ def get_visible_stories(client: Client) -> dict:
         all_users = get_all_users()
         user_map = {u["id"]: u for u in all_users}
         
+        # Batch Generate Signed URLs
+        paths = [story["image_url"] for story in db_res.data]
+        url_map = {}
+        try:
+            url_res = client.storage.from_("stories").create_signed_urls(paths, 3600)
+            for item in url_res:
+                if not item.get("error"):
+                    signed_url = item.get("signedURL", item.get("signedUrl", ""))
+                    url_map[item["path"]] = signed_url
+        except Exception:
+            pass
+
         stories = []
         for story in db_res.data:
-            # Generate signed URL for each story image
-            try:
-                url_res = client.storage.from_("stories").create_signed_url(story["image_url"], 3600)
-                signed_url = url_res.get("signedURL", url_res.get("signedUrl", ""))
-            except Exception:
-                signed_url = ""
-            
+            signed_url = url_map.get(story["image_url"], "")
             owner = user_map.get(story["owner_id"], {})
+            
             stories.append({
                 "id": story["id"],
                 "owner_id": story["owner_id"],
