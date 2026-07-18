@@ -1,5 +1,6 @@
 import os
 import logging
+from datetime import datetime, timezone
 from functools import lru_cache
 from dotenv import load_dotenv
 from supabase import create_client, Client
@@ -66,7 +67,11 @@ def create_story_with_file(client: Client, file_bytes: bytes, filename: str) -> 
 
         # 2. Save the database row
         res = client.table("stories").upsert(
-            {"owner_id": owner_id, "image_url": storage_filename},
+            {
+                "owner_id": owner_id, 
+                "image_url": storage_filename,
+                "created_at": datetime.now(timezone.utc).isoformat()
+            },
             on_conflict="owner_id"
         ).execute()
 
