@@ -105,9 +105,6 @@ export default function CreateStoryModal({ isOpen, onClose, onUpload, uploading 
           </>
         )}
 
-        <p className="body-sm text-variant text-center mt-4">
-          Your stories will be visible to your friends for 24 hours.
-        </p>
       </div>
     </div>
   );
