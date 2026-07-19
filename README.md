@@ -4,7 +4,7 @@ A full-stack Instagram-style feed demonstrating secure Row Level Security (RLS) 
 
 <div align="center">
   <p><b>Live App:</b> <a href="https://friends-frontend.vercel.app/">https://friends-frontend.vercel.app/</a></p>
-  <p><b>API Documentation:</b> <a href="https://friends-backend.onrender.com/docs">https://friends-backend.onrender.com/docs</a></p>
+  <p><b>API Documentation:</b> <a href="https://freinds-backend.onrender.com/docs">https://freinds-backend.onrender.com/docs</a></p>
 </div>
 
 ## Overview
