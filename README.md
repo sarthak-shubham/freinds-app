@@ -3,8 +3,8 @@
 A full-stack Instagram-style feed demonstrating secure Row Level Security (RLS) and data isolation with Supabase.
 
 <div align="center">
-  <p><b>Live App:</b> <a href="https://freinds-app.vercel.app/">https://freinds-app.vercel.app/</a></p>
-  <p><b>API Documentation:</b> <a href="https://freinds-backend.onrender.com/docs">https://freinds-backend.onrender.com/docs</a></p>
+  <p><b>Live App:</b> <a href="https://friends-frontend.vercel.app/">https://friends-frontend.vercel.app/</a></p>
+  <p><b>API Documentation:</b> <a href="https://friends-backend.onrender.com/docs">https://friends-backend.onrender.com/docs</a></p>
 </div>
 
 ## Overview
@@ -89,8 +89,8 @@ erDiagram
 
 **1. Clone the repository**
 ```bash
-git clone https://github.com/sarthak-shubham/freinds-app.git
-cd freinds-app
+git clone https://github.com/sarthak-shubham/friends-app.git
+cd friends-app
 ```
 
 **2. Backend Setup**
